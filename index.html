@@ -78,10 +78,10 @@
     .nav {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.25rem;
       padding: 1.6rem clamp(1.25rem, 5vw, 3rem);
     }
-    .nav .tile { width: 30px; height: 30px; border-radius: 7px; }
+    .nav .mark { width: 28px; height: 28px; }
     .wordmark {
       font-weight: 600;
       font-size: 1.25rem;
@@ -160,30 +160,14 @@
       max-width: 46ch;
       margin: 0 auto;
     }
-
-    /* Footer */
-    footer {
-      padding: 2rem clamp(1.25rem, 5vw, 3rem) 2.4rem;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-    footer .scope { max-width: 52ch; margin: 0 auto 0.8rem; }
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--text); }
-    footer .legal { margin-top: 0.4rem; }
   </style>
 </head>
 <body>
   <div class="page">
     <nav class="nav" aria-label="Primary">
-      <svg class="tile" viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="14.3" fill="#0DBE76"/>
-        <g transform="translate(14.45 13.71) scale(1.4933)" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8.5 18.5 L16 12.5 L7.5 6"/>
-          <path d="M11.9 6.7 L7.5 6 L9.4 10.1"/>
-        </g>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8.5 18.5 L16 12.5 L7.5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M11.9 6.7 L7.5 6 L9.4 10.1" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span class="wordmark">Intercepted</span>
     </nav>
@@ -203,20 +187,6 @@
       <h1>Check before you snack.</h1>
       <p class="subhead">Most snacking runs on impulse, not hunger. Intercepted is a ten-second check-in that helps you tell the difference.</p>
     </main>
-
-    <footer>
-      <p class="scope">Intercepted supports everyday habit change. It isn't designed for eating-disorder recovery. If that's you, please work with a professional.</p>
-      <p class="legal">
-        <a href="/privacy">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="/terms">Terms</a> &nbsp;&middot;&nbsp;
-        <a href="mailto:hello@intercepted.app">hello@intercepted.app</a>
-      </p>
-      <p class="legal">&copy; <span id="year"></span> Intercepted</p>
-    </footer>
   </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
