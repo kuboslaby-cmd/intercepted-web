@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Env / secrets (don't commit Supabase keys here; use Cloudflare Pages env vars or inline carefully)
+.env
+.env.*
+!.env.example
+
+# Node (for when this grows into Astro)
+node_modules/
+dist/
+.astro/

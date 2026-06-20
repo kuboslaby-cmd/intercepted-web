@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Intercepted - check before you snack</title>
+  <meta name="description" content="A ten-second check-in that helps you catch impulsive snacking before it happens. No calorie counting, no shame. iOS, coming soon." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Intercepted - check before you snack" />
+  <meta property="og:description" content="A ten-second check-in that helps you catch impulsive snacking before it happens. No calorie counting, no shame. iOS, coming soon." />
+  <meta property="og:url" content="https://intercepted.app" />
+  <meta property="og:image" content="https://intercepted.app/assets/icon-1024.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- Favicon: the glyph -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M8.5 18.5 L16 12.5 L7.5 6' stroke='%230DBE76' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M11.9 6.7 L7.5 6 L9.4 10.1' stroke='%230DBE76' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <!-- Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #F6F7F6;
+      --text: #1A1C1A;
+      --muted: #5B635C;
+      --border: #E4E7E4;
+      --accent: #0DBE76;
+      --accent-strong: #0AA968;
+      --glow: rgba(13, 190, 118, 0.28);
+      --on-accent: #FFFFFF;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16181C;
+        --surface: #1E2127;
+        --text: #F3F5F3;
+        --muted: #9AA39B;
+        --border: #2A2E35;
+        --accent: #13CE86;
+        --accent-strong: #2BD897;
+        --glow: rgba(19, 206, 134, 0.30);
+        --on-accent: #0B0D10;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      line-height: 1.5;
+    }
+
+    .page {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1.6rem clamp(1.25rem, 5vw, 3rem);
+    }
+    .nav .mark { width: 28px; height: 28px; }
+    .wordmark {
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    /* Main hero */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem clamp(1.25rem, 5vw, 3rem) 3rem;
+    }
+
+    .glyph-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 2.2rem;
+    }
+    .glyph-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(closest-side, var(--glow), transparent 72%);
+      filter: blur(6px);
+      z-index: 0;
+    }
+    .glyph-wrap .mark { position: relative; z-index: 1; width: 72px; height: 72px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      margin-bottom: 1.1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin: 0 0 1rem;
+      max-width: 14ch;
+    }
+
+    .subhead {
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 46ch;
+      margin: 0 auto 2.4rem;
+    }
+
+    /* Waitlist form */
+    .waitlist {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .field {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    input[type="email"] {
+      flex: 1 1 220px;
+      min-width: 0;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      transition: border-color 0.15s ease;
+    }
+    input[type="email"]::placeholder { color: var(--muted); }
+    input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+    button {
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.4rem;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--on-accent);
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.05s ease;
+      flex: 0 0 auto;
+    }
+    button:hover { background: var(--accent-strong); }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.6; cursor: default; }
+
+    .perk {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .form-msg {
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+      min-height: 1.2em;
+    }
+    .form-msg.error { color: #d9534f; }
+    .form-msg.success { color: var(--accent-strong); font-weight: 500; }
+
+    .success-state { display: none; }
+    .success-state h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 0.4rem;
+    }
+    .success-state p { color: var(--muted); margin: 0; }
+
+    /* Footer */
+    footer {
+      padding: 2rem clamp(1.25rem, 5vw, 3rem) 2.4rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer .scope { max-width: 52ch; margin: 0 auto 0.8rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    footer .legal { margin-top: 0.4rem; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav" aria-label="Primary">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8.5 18.5 L16 12.5 L7.5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M11.9 6.7 L7.5 6 L9.4 10.1" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="wordmark">Intercepted</span>
+    </nav>
+
+    <main>
+      <div class="glyph-wrap">
+        <svg class="mark" viewBox="0 0 24 24" fill="none" aria-label="Intercepted">
+          <path d="M8.5 18.5 L16 12.5 L7.5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.9 6.7 L7.5 6 L9.4 10.1" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <span class="eyebrow">Coming soon to iOS</span>
+      <h1>Check before you snack.</h1>
+      <p class="subhead">Most snacking runs on impulse, not hunger. Intercepted is a ten-second check-in that helps you tell the difference.</p>
+
+      <div class="waitlist">
+        <form id="waitlist-form" novalidate>
+          <div class="field">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+              aria-label="Email address"
+            />
+            <button type="submit" id="submit-btn">Get early access</button>
+          </div>
+          <p class="perk">First 100 users get Pro free.</p>
+          <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="success-state" id="success-state">
+          <h2>You're on the list.</h2>
+          <p>We'll tell you the moment Intercepted is live.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p class="scope">Intercepted supports everyday habit change. It isn't designed for eating-disorder recovery. If that's you, please work with a professional.</p>
+      <p class="legal">
+        <a href="/privacy">Privacy Policy</a> &nbsp;&middot;&nbsp;
+        <a href="/terms">Terms</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:hello@intercepted.app">hello@intercepted.app</a>
+      </p>
+      <p class="legal">&copy; <span id="year"></span> Intercepted</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ----------------------------------------------------------------------
+    // Waitlist submission.
+    //
+    // To wire this to your existing Supabase `waitlist` table (email, created_at):
+    //   1. Set the two constants below to your project's URL and anon key.
+    //   2. In Supabase, enable Row Level Security on `waitlist` and add an
+    //      INSERT policy that allows anonymous inserts (anon role), columns
+    //      limited to `email`. That keeps the public key safe for insert-only.
+    //
+    // Until you fill these in, the form just shows the success state locally
+    // so you can deploy the coming-soon page immediately.
+    // ----------------------------------------------------------------------
+    const SUPABASE_URL = "";      // e.g. "https://xxxx.supabase.co"
+    const SUPABASE_ANON_KEY = ""; // your public anon key
+
+    const form = document.getElementById("waitlist-form");
+    const emailInput = document.getElementById("email");
+    const msg = document.getElementById("form-msg");
+    const btn = document.getElementById("submit-btn");
+    const successState = document.getElementById("success-state");
+
+    function showError(text) {
+      msg.textContent = text;
+      msg.className = "form-msg error";
+    }
+
+    function showSuccess() {
+      form.style.display = "none";
+      successState.style.display = "block";
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      msg.textContent = "";
+      msg.className = "form-msg";
+
+      const email = emailInput.value.trim();
+      if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        showError("Please enter a valid email address.");
+        emailInput.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Joining...";
+
+      try {
+        if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+          const res = await fetch(SUPABASE_URL + "/rest/v1/waitlist", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_ANON_KEY,
+              "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({ email: email })
+          });
+          if (!res.ok) {
+            // 409 = duplicate email if you set a unique constraint. Treat as success.
+            if (res.status !== 409) throw new Error("Request failed: " + res.status);
+          }
+        } else {
+          // No backend configured yet. Simulate a short delay.
+          await new Promise(function (r) { setTimeout(r, 400); });
+        }
+        showSuccess();
+      } catch (err) {
+        showError("Something went wrong. Please try again.");
+        btn.disabled = false;
+        btn.textContent = "Get early access";
+      }
+    });
+  </script>
+</body>
+</html>
